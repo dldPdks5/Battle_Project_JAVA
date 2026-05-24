@@ -31,11 +31,6 @@ public class Main {
 		allWizards.add(bel);
 
 		//무기 생성 
-//		지팡이 cane = new 지팡이("지팡이", 50);
-//		투명망토 cape = new 투명망토("투명망토", 50);
-//		그리핀도르의칼 sword = new 그리핀도르의칼("그리핀도르의칼", 50);
-//		물약 medicine = new 물약("물약", 50);
-		
 		지팡이 cane = new 지팡이("마법지팡이");
 		투명망토 cape = new 투명망토("예쁜투명망토");
 		그리핀도르의칼 sword = new 그리핀도르의칼("쌩그리핀도르의칼");
@@ -189,9 +184,6 @@ public class Main {
 				else attacker.공격하기(target, attacker.getWeapon());
 			}
 			
-			if (m == 0) {
-				System.out.println("[이벤트] " + target.getName() + " 이/가 투명망토를 두릅니다!");
-			}
 			
 
 			if (target.getHp() <= 0) {
