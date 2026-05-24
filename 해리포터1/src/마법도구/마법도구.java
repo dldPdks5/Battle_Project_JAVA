@@ -10,12 +10,6 @@ public class 마법도구 {
 		this.name = name;
 	}
 	
-	
-//	public 마법도구(String name, int skill) {
-//		this.name = name;
-//		this.skill = skill;
-//	}
-	
 	public void 공격 () {
 		System.out.println("마법도구로 공격합니다");
 	}

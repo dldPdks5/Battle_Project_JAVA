@@ -56,6 +56,17 @@ public class 벨라트릭스 extends 마법사 implements IHeal {
     		super.공격하기(target);
     	}
 	}
+    
+    public void 럭키공격(마법사 target) {
+    	if(target instanceof 벨라트릭스 || target instanceof 볼드모트) {
+    		System.out.println("자기자신이나 같은 팀은 공격할 수 없습니다.");
+    		return;
+    	}
+    	else {
+    		super.럭키공격(target);
+    	}
+	}
+    
     public void 공격하기(마법사 target, 마법도구 weapon) {
     	if(target instanceof 벨라트릭스 || target instanceof 볼드모트) {
     		System.out.println("자기자신이나 같은 팀은 공격할 수 없습니다.");
