@@ -184,7 +184,6 @@ public class Main {
 				else attacker.공격하기(target, attacker.getWeapon());
 			}
 			
-			
 
 			if (target.getHp() <= 0) {
 				System.out.println("☠ " + target.getName() + " 이/가 쓰러졌습니다. ☠");
