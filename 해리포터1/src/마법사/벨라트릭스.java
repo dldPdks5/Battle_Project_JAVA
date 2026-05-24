@@ -40,6 +40,7 @@ public class 벨라트릭스 extends 마법사 implements IHeal {
 		if(medicine instanceof 물약) {
 			target.setHp(target.getHp()+ medicine.getSkill());
 			System.out.println(super.getName() + "이 " + medicine.getName() +"으로 " + target.getName() +"을 치료합니다." );
+			((물약)medicine).상처치유();
 		}
 		else {
 			System.out.println("마법도구가 물약이 아니면 치료할 수 없습니다.");

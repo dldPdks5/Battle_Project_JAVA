@@ -5,11 +5,21 @@ public class 마법도구 {
 	private int skill;
 
 	public 마법도구() {}
-	public 마법도구(String name, int skill) {
+	
+	public 마법도구(String name) {
 		this.name = name;
-		this.skill = skill;
 	}
-
+	
+	
+//	public 마법도구(String name, int skill) {
+//		this.name = name;
+//		this.skill = skill;
+//	}
+	
+	public void 공격 () {
+		System.out.println("마법도구로 공격합니다");
+	}
+	
 
 	public String getName() {
 		return this.name;

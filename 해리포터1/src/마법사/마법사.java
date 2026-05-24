@@ -22,7 +22,8 @@ public class 마법사 implements IAttack {
 
 	public void 공격하기(마법사 target){
 		if(target.getWeapon() instanceof 투명망토) {
-			System.out.println(target.getName() + " 이/가 " + target.getWeapon() + " 을/를 가져서 공격이 무효화됩니다." );
+			System.out.println(target.getName() + " 이/가 " + target.getWeapon().getName() + " 을/를 가져서 공격이 무효화됩니다." );
+			((투명망토)target.getWeapon()).방어하기();
 			target.setWeapon(null);
 		}
 		else {
@@ -36,7 +37,8 @@ public class 마법사 implements IAttack {
 	///공격 7배 효과
 	public void 럭키공격(마법사 target){ //////
 		if(target.getWeapon() instanceof 투명망토) {
-			System.out.println(target.getName() + " 이/가 " + target.getWeapon() + " 을/를 가져서 공격이 무효화됩니다." );
+			System.out.println(target.getName() + " 이/가 " + target.getWeapon().getName() + " 을/를 가져서 공격이 무효화됩니다." );
+			((투명망토)target.getWeapon()).방어하기();
 			target.setWeapon(null);
 		}
 		else {
@@ -48,22 +50,20 @@ public class 마법사 implements IAttack {
 
 	public void 공격하기(마법사 target, 마법도구 weapon){
 
-		if(weapon instanceof 물약) {
-			System.out.println("물약으로는 공격할 수 없습니다.");
-			return;
-		}
-
-		if(weapon instanceof 투명망토) {
-			System.out.println("투명망토로는 공격할 수 없습니다.");
+		if(weapon instanceof 물약 || weapon instanceof 투명망토) {  // 이렇게 나눌필요가 없을직도!
+			weapon.공격();
 			return;
 		}
 
 		if(target.getWeapon() instanceof 투명망토) {
-			System.out.println(target.getName() + " 이/가 " + target.getWeapon() +" 을/를 가져서 공격이 무효화됩니다.");
+			System.out.println(target.getName() + " 이/가 " + target.getWeapon().getName() +" 을/를 가져서 공격이 무효화됩니다.");
+			((투명망토)target.getWeapon()).방어하기();
 			target.setWeapon(null);
 		}
 		else {
 			System.out.println(this.getName() + " 이/가 " + weapon.getName() + " 으로 " +target.getName() + "을/를 공격합니다.");
+			//마법도구 공격
+			weapon.공격();
 			target.setHp(target.getHp() - (this.getSkill()+ weapon.getSkill()));
 		}  	
 
@@ -71,22 +71,21 @@ public class 마법사 implements IAttack {
 	
 	public void 럭키공격(마법사 target, 마법도구 weapon){ /////
 
-		if(weapon instanceof 물약) {
-			System.out.println("물약으로는 공격할 수 없습니다.");
+		if(weapon instanceof 물약 || weapon instanceof 투명망토) {
+			weapon.공격();
 			return;
 		}
 
-		if(weapon instanceof 투명망토) {
-			System.out.println("투명망토로는 공격할 수 없습니다.");
-			return;
-		}
 
 		if(target.getWeapon() instanceof 투명망토) {
-			System.out.println(target.getName() + " 이/가 " + target.getWeapon() +" 을/를 가져서 공격이 무효화됩니다.");
+			System.out.println(target.getName() + " 이/가 " + target.getWeapon().getName() +" 을/를 가져서 공격이 무효화됩니다.");
+			((투명망토)target.getWeapon()).방어하기();
 			target.setWeapon(null);
 		}
 		else {
 			System.out.println(this.getName() + " 이/가 " + weapon.getName() + " 으로 " +target.getName() + "을/를 공격합니다.");
+			//마법도구 공격
+			weapon.공격();
 			target.setHp(target.getHp() - (this.getSkill()+ weapon.getSkill())*7);
 		}  	
 

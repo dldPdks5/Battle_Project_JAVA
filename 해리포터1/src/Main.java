@@ -1,4 +1,3 @@
-//Main
 import 마법사.*;
 import 마법도구.*;
 import java.util.*;
@@ -8,127 +7,201 @@ import java.util.Random;
 public class Main {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
-		
 
-		해리포터 haPd = new 해리포터("짱해리포터", 200, 20); //원래 1000이었음
-		헤르미온느 heMi = new 헤르미온느("똒똑헤르미온느", 200, 20);
-		볼드모트 vol = new 볼드모트("무섭볼트모트", 200, 20);
-		벨라트릭스 bel = new 벨라트릭스("강렬벨라트릭스", 200, 20);
+		//캐릭터 생성 
+		해리포터 haPd = new 해리포터("짱해리포터", 1000, 100);
+		헤르미온느 heMi = new 헤르미온느("똒똑헤르미온느", 1000, 100);
+		볼드모트 vol = new 볼드모트("무섭볼트모트", 1000, 100);
+		벨라트릭스 bel = new 벨라트릭스("강렬벨라트릭스", 1000, 100);
 
-		지팡이 cane = new 지팡이("지팡이", 50);
-		투명망토 cape = new 투명망토("투명망토", 50);
-		그리핀도르의칼 sword = new 그리핀도르의칼("그리핀도르의칼", 50);
-		물약 medicine = new 물약("물약", 50);
-	
-		ArrayList<마법사> goodTeam = new ArrayList<마법사>();
+		//팀끼리 리스트 생성 
+		List<마법사> goodTeam = new ArrayList();
 		goodTeam.add(haPd);
 		goodTeam.add(heMi);
-		ArrayList<마법사> badTeam = new ArrayList<마법사>();
-		badTeam.add(vol);
-		badTeam.add(bel);
 
-		haPd.showStatus();
-		heMi.showStatus();
-		vol.showStatus();
-		bel.showStatus();
+		List<마법사> evilTeam = new ArrayList<>();
+		evilTeam.add(vol);
+		evilTeam.add(bel);
 
-		int num = 0;
+		//마법사 전체 리스트 하나 더 생성함. 
+		List<마법사> allWizards = new ArrayList<>();
+		allWizards.add(haPd);
+		allWizards.add(heMi);
+		allWizards.add(vol);
+		allWizards.add(bel);
+
+		//무기 생성 
+//		지팡이 cane = new 지팡이("지팡이", 50);
+//		투명망토 cape = new 투명망토("투명망토", 50);
+//		그리핀도르의칼 sword = new 그리핀도르의칼("그리핀도르의칼", 50);
+//		물약 medicine = new 물약("물약", 50);
+		
+		지팡이 cane = new 지팡이("마법지팡이");
+		투명망토 cape = new 투명망토("예쁜투명망토");
+		그리핀도르의칼 sword = new 그리핀도르의칼("쌩그리핀도르의칼");
+		물약 medicine = new 물약("치유물약");
+
+		//무기 리스트 생성 
+		List<마법도구> weaponList = new ArrayList<>();
+		weaponList.add(cane);
+		weaponList.add(cape);
+		weaponList.add(sword);
+		weaponList.add(medicine);
+
 
 		마법사 attacker, target;
-		마법도구 weapon;
+		System.out.println();
 		System.out.println("============<해리포터 게임!>============");
 
 		while(true) {
-
-			System.out.println("<<공격할 마법사를 선택하세요. >>");
-			System.out.printf("1. %s 2. %s 3. %s 4. %s", haPd.getName(), heMi.getName(), vol.getName(), bel.getName());
-			System.out.println();
-			System.out.print("입력 : ");
-			num = input.nextInt();
-
-			if(num==1) attacker = haPd;
-			else if(num == 2) attacker = heMi;
-			else if(num == 3) attacker = vol;
-			else if(num == 4) attacker = bel;
-			else {
-				System.out.println("메뉴에서 마법사를 다시 선택해주세요. 게임을 다시 시작합니다. "); 
-				continue;
+			// 게임 종료 -  리스트가 비어있으면 전멸
+			if (goodTeam.isEmpty()) {
+				System.out.println("======= 게임 종료: 볼드모트 팀 승리! =======");
+				break;
+			} else if (evilTeam.isEmpty()) {
+				System.out.println("======= 게임 종료: 해리포터 팀 승리! =======");
+				break;
 			}
 
-			Random r = new Random();
-			int i = r.nextInt(5); //무기 랜덤으로 돌려서 넣기
+			// 현재 생존자 상태 출력
+			System.out.println("\n------ [현재 생존자 상태] ------");
+			for (int i = 0; i < allWizards.size(); i++) {
+				allWizards.get(i).showStatus();
+			}
+			System.out.println("------------------------");
 
-			if(i==0) attacker.setWeapon(cane);
-			else if(i == 1) attacker.setWeapon(cape);
-			else if(i == 2) attacker.setWeapon(sword);
-			else if(i == 3) attacker.setWeapon(medicine);
-			else if(i == 4) attacker.setWeapon(null); //무기가 없는 경우
+			
+			
+			System.out.println("<<공격할 마법사를 선택하세요. >>");
+			for(int i=0; i<allWizards.size(); i++) {
+				System.out.printf("%d. %s ", (i + 1), allWizards.get(i).getName());
+			}
+			System.out.print("\n입력 : ");
+			int attackerId = input.nextInt() - 1;
 
-			if(attacker.getWeapon() ==null)
-				System.out.println(attacker.getName()+"의 무기는 없습니다. ");
-			else
-				System.out.println(attacker.getName()+"의 무기는 "+attacker.getWeapon());
+
+			if (attackerId < 0 || attackerId >= allWizards.size()) {
+				System.out.println("잘못된 선택입니다. 처음으로 돌아갑니다.");
+				continue;
+			}
+			attacker = allWizards.get(attackerId);
+
+
+			boolean isHealing = false;
 
 			//attacker == 헤르미온느, 벨라트릭스 
 			//마법도구  = 물약
-			if(attacker.getWeapon() instanceof 물약) {
-				if(attacker == heMi) {
-					System.out.println(attacker.getName()+" 이/가 "+haPd.getName()+" 을/를 치유합니다. ");
-					haPd.setHp(haPd.getHp()+20);
-					System.out.println("게임을 다시 시작합니다!"); 
+			if (attacker instanceof 헤르미온느 || attacker instanceof 벨라트릭스) {
+				System.out.println("<< 수행할 행동을 선택하세요 >>");
+				System.out.println("1. 공격하기  2. 치유하기");
+				System.out.print("입력 : ");
+				int action = input.nextInt();
+
+				if (action == 2) { //치유 모드
+					isHealing = true;
+				}
+			}
+
+			if (isHealing) {
+				마법사 healTarget = null;
+				
+				System.out.println("<<공격(치유)할 대상을 선택하세요. >>");
+				for (int i = 0; i < allWizards.size(); i++) {
+					System.out.printf("%d. %s ", (i + 1), allWizards.get(i).getName());
+				}
+				System.out.print("\n입력 : ");
+				int targetId2 = input.nextInt() - 1;
+				
+				healTarget = allWizards.get(targetId2);				
+
+				if (goodTeam.contains(healTarget) || evilTeam.contains(healTarget)) {
+					if(attacker instanceof 헤르미온느) {
+						마법도구 물약;
+						((헤르미온느)attacker).치료하기(healTarget, medicine);
+					}
+					else if(attacker instanceof 벨라트릭스) {
+						((벨라트릭스)attacker).치료하기(healTarget, medicine);
+					}
+				} 
+				else {
+					System.out.println("치유 대상이 이미 사망하여 치유할 수 없습니다.");
+				}
+
+				System.out.println("턴이 끝났습니다.");
+				continue; 
+			}
+			else {
+				System.out.println("<< 장착할 무기를 선택하세요 >>");
+				System.out.print("0. 맨손(무기 없음)");
+
+				for (int i = 0; i < weaponList.size(); i++) {
+					System.out.printf(" %d. %s(스킬력: %d) ", (i + 1), weaponList.get(i).getName(), weaponList.get(i).getSkill());
+				}
+				System.out.print("\n입력 : ");
+				int weaponId = input.nextInt();
+
+				if (weaponId == 0) {
+					attacker.setWeapon(null);
+					System.out.println(attacker.getName() + "의 무기는 없습니다.");
+				} else if (weaponId > 0 && weaponId <= weaponList.size()) {
+					attacker.setWeapon(weaponList.get(weaponId - 1));
+					System.out.println(attacker.getName() + "의 무기는 " + attacker.getWeapon().getName() + "입니다.");
+				} else {
+					System.out.println("잘못된 무기 선택입니다. 처음으로 돌아갑니다.");
 					continue;
 				}
-				else if(attacker == bel){
-					System.out.println(attacker.getName()+" 이/가 "+vol.getName()+" 을/를 치유합니다. ");
-					vol.setHp(vol.getHp()+20);
-					System.out.println("게임을 다시 시작합니다!"); 
-					continue;
-				}
+
 			}
 
 
 			System.out.println("<<공격할 대상을 선택하세요. >>");
-			System.out.printf("1. %s 2. %s 3. %s 4. %s", haPd.getName(), heMi.getName(), vol.getName(), bel.getName());
-			System.out.println();
-			System.out.print("입력 : ");
-			num = input.nextInt();
+			for (int i = 0; i < allWizards.size(); i++) {
+				System.out.printf("%d. %s ", (i + 1), allWizards.get(i).getName());
+			}
+			System.out.print("\n입력 : ");
+			int targetId = input.nextInt() - 1;
 
-			if(num==1) target = haPd;
-			else if(num == 2) target = heMi;
-			else if(num == 3) target = vol;
-			else if(num == 4) target = bel;
-			else {
-				System.out.println("메뉴에서 마법사를 다시 선택해주세요. 게임을 다시 시작합니다. "); 
+			if (targetId < 0 || targetId >= allWizards.size()) {
+				System.out.println("잘못된 선택입니다. 처음으로 돌아갑니다.");
 				continue;
 			}
+			target = allWizards.get(targetId);
 
-			int m = r.nextInt(2); //target에 투명망토 랜덤으로 돌려서 넣기
-			if(m == 0) target.setWeapon(cape); //if(m == 0) target.setWeapon(null);
-			else target.setWeapon(null); //else target.setWeapon(cape);
+			Random r = new Random();
 
+			System.out.println("[attacker]는 " + attacker.getName() + ", [target]은 " + target.getName() + "입니다.");
 
-			System.out.println("[attacker]는 "+attacker.getName() +", [target]은 "+target.getName()+"입니다. ");
+			int m = r.nextInt(4);
+			if (m == 0) {
+				// target.setWeapon(new 투명망토("투명망토", 50));
+				target.setWeapon(new 투명망토("예쁜투명망토"));
+			}
 
-
-
-			if(attacker.getWeapon() ==null)//무기가 없는 경우, 
-				attacker.공격하기(target);
-			else //무기가 있는 경우,
-				attacker.공격하기(target, attacker.getWeapon());
-
+			//랜덤으로 럭키.. 공격 7배를 추가해 봤어요 + 마법사에 럭키공격() 생성자
+			int lucky = r.nextInt(8); ///랜덤 럭키 숫자
+			if(lucky==7) {
+				System.out.println("★★★★★★★럭키 공격 7배!!★★★★★★★");
+				if (attacker.getWeapon() == null) attacker.럭키공격(target);					
+				else attacker.럭키공격(target, attacker.getWeapon());
+			}
+			else {
+				if (attacker.getWeapon() == null) attacker.공격하기(target);
+				else attacker.공격하기(target, attacker.getWeapon());
+			}
 			
+			if (m == 0) {
+				System.out.println("[이벤트] " + target.getName() + " 이/가 투명망토를 두릅니다!");
+			}
+			
+
+			if (target.getHp() <= 0) {
+				System.out.println("☠ " + target.getName() + " 이/가 쓰러졌습니다. ☠");
+				goodTeam.remove(target);
+				evilTeam.remove(target);
+				allWizards.remove(target); // 선택지에서도 삭제
+			}
+
 			System.out.println("공격이 끝났습니다. ");
-
-			haPd.showStatus();
-			heMi.showStatus();
-			vol.showStatus();
-			bel.showStatus();
-			System.out.println();
-			
-			//한팀이 전멸하면 게임끝
-			// 팀에서 없애기, 게임에서 없애기
-
-
 
 		}
 
