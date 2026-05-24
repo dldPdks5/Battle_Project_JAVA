@@ -5,7 +5,7 @@ import java.util.Random;
 
 
 public class Main {
-	public static void main(String[] args) {
+	public static void consoleGame() {
 		Scanner input = new Scanner(System.in);
 
 		//캐릭터 생성 
@@ -65,8 +65,8 @@ public class Main {
 			}
 			System.out.println("------------------------");
 
-			
-			
+
+
 			System.out.println("<<공격할 마법사를 선택하세요. >>");
 			for(int i=0; i<allWizards.size(); i++) {
 				System.out.printf("%d. %s ", (i + 1), allWizards.get(i).getName());
@@ -99,14 +99,14 @@ public class Main {
 
 			if (isHealing) {
 				마법사 healTarget = null;
-				
+
 				System.out.println("<<공격(치유)할 대상을 선택하세요. >>");
 				for (int i = 0; i < allWizards.size(); i++) {
 					System.out.printf("%d. %s ", (i + 1), allWizards.get(i).getName());
 				}
 				System.out.print("\n입력 : ");
 				int targetId2 = input.nextInt() - 1;
-				
+
 				healTarget = allWizards.get(targetId2);				
 
 				if (goodTeam.contains(healTarget) || evilTeam.contains(healTarget)) {
@@ -182,11 +182,11 @@ public class Main {
 				if (attacker.getWeapon() == null) attacker.공격하기(target);
 				else attacker.공격하기(target, attacker.getWeapon());
 			}
-			
+
 			if (m == 0) {
 				System.out.println("[이벤트] " + target.getName() + " 이/가 투명망토를 두릅니다!");
 			}
-			
+
 
 			if (target.getHp() <= 0) {
 				System.out.println("☠ " + target.getName() + " 이/가 쓰러졌습니다. ☠");
@@ -200,6 +200,47 @@ public class Main {
 		}
 
 
+	}
+	public static void main(String[] args) {
+		//원도우 게임
+		해리포터 haPd = new 해리포터("짱해리포터", 1000, 100);
+		헤르미온느 heMi = new 헤르미온느("똒똑헤르미온느", 1000, 100);
+		볼드모트 vol = new 볼드모트("무섭볼트모트", 1000, 100);
+		벨라트릭스 bel = new 벨라트릭스("강렬벨라트릭스", 1000, 100);
+
+		//팀끼리 리스트 생성 
+		List<마법사> goodTeam = new ArrayList();
+		goodTeam.add(haPd);
+		goodTeam.add(heMi);
+
+		List<마법사> evilTeam = new ArrayList<>();
+		evilTeam.add(vol);
+		evilTeam.add(bel);
+
+		//마법사 전체 리스트 하나 더 생성함. 
+		List<마법사> allWizards = new ArrayList<>();
+		allWizards.add(haPd);
+		allWizards.add(heMi);
+		allWizards.add(vol);
+		allWizards.add(bel);
+
+		//무기 생성 
+		지팡이 cane = new 지팡이("지팡이", 50);
+		투명망토 cape = new 투명망토("투명망토", 50);
+		그리핀도르의칼 sword = new 그리핀도르의칼("그리핀도르의칼", 50);
+		물약 medicine = new 물약("물약", 50);
+
+		//무기 리스트 생성 
+		List<마법도구> weaponList = new ArrayList<>();
+		weaponList.add(cane);
+		weaponList.add(cape);
+		weaponList.add(sword);
+		weaponList.add(medicine);
+
+
+		Battle myGameWindow = new Battle(allWizards, goodTeam, evilTeam, weaponList);
+        myGameWindow.setVisible(true);
+        
 	}
 
 }
