@@ -1,4 +1,3 @@
-//해리포터
 package 마법사;
 import 마법도구.*;
 
@@ -32,6 +31,16 @@ public class 해리포터 extends 마법사 {
     	}
     }
 	
+	public void 럭키공격(마법사 target) {
+    	if(target instanceof 해리포터 || target instanceof 헤르미온느) {
+    		System.out.println("자기자신이나 같은 팀은 공격할 수 없습니다.");
+    		return;
+    	}
+    	else {
+    		super.럭키공격(target);
+    	}
+    }
+	
 
 	@Override
     public void 공격하기(마법사 target, 마법도구 weapon) {
@@ -46,7 +55,7 @@ public class 해리포터 extends 마법사 {
 
     }
 	
-    public void 럭키공격(마법사 target, 마법도구 weapon) {
+	public void 럭키공격(마법사 target, 마법도구 weapon) {
     	if(target instanceof 헤르미온느 || target instanceof 해리포터) {
     		System.out.println("자기자신이나 같은 팀은 공격할 수 없습니다.");
     		return; // 값을 넣으면 reuturn 값 나와서 다시 출력하는 걸로
@@ -60,4 +69,3 @@ public class 해리포터 extends 마법사 {
 
 }
     
-
