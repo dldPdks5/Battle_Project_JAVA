@@ -5,7 +5,7 @@ import java.util.Random;
 
 
 public class Main {
-	public static void main(String[] args) {
+	public static void consoleGame() {
 		Scanner input = new Scanner(System.in);
 
 		//캐릭터 생성 
@@ -31,10 +31,10 @@ public class Main {
 		allWizards.add(bel);
 
 		//무기 생성 
-		지팡이 cane = new 지팡이("마법지팡이");
-		투명망토 cape = new 투명망토("예쁜투명망토");
-		그리핀도르의칼 sword = new 그리핀도르의칼("쌩그리핀도르의칼");
-		물약 medicine = new 물약("치유물약");
+		지팡이 cane = new 지팡이("지팡이");
+		투명망토 cape = new 투명망토("투명망토");
+		그리핀도르의칼 sword = new 그리핀도르의칼("그리핀도르의칼");
+		물약 medicine = new 물약("물약");
 
 		//무기 리스트 생성 
 		List<마법도구> weaponList = new ArrayList<>();
@@ -65,8 +65,8 @@ public class Main {
 			}
 			System.out.println("------------------------");
 
-			
-			
+
+
 			System.out.println("<<공격할 마법사를 선택하세요. >>");
 			for(int i=0; i<allWizards.size(); i++) {
 				System.out.printf("%d. %s ", (i + 1), allWizards.get(i).getName());
@@ -99,14 +99,14 @@ public class Main {
 
 			if (isHealing) {
 				마법사 healTarget = null;
-				
+
 				System.out.println("<<공격(치유)할 대상을 선택하세요. >>");
 				for (int i = 0; i < allWizards.size(); i++) {
 					System.out.printf("%d. %s ", (i + 1), allWizards.get(i).getName());
 				}
 				System.out.print("\n입력 : ");
 				int targetId2 = input.nextInt() - 1;
-				
+
 				healTarget = allWizards.get(targetId2);				
 
 				if (goodTeam.contains(healTarget) || evilTeam.contains(healTarget)) {
@@ -130,7 +130,7 @@ public class Main {
 				System.out.print("0. 맨손(무기 없음)");
 
 				for (int i = 0; i < weaponList.size(); i++) {
-					System.out.printf(" %d. %s(스킬력: %d) ", (i + 1), weaponList.get(i).getName(), weaponList.get(i).getSkill());
+					System.out.printf(" %d. %s(공격력: %d) ", (i + 1), weaponList.get(i).getName(), weaponList.get(i).getSkill());
 				}
 				System.out.print("\n입력 : ");
 				int weaponId = input.nextInt();
@@ -168,8 +168,7 @@ public class Main {
 
 			int m = r.nextInt(4);
 			if (m == 0) {
-				// target.setWeapon(new 투명망토("투명망토", 50));
-				target.setWeapon(new 투명망토("예쁜투명망토"));
+				target.setWeapon(new 투명망토("투명망토"));
 			}
 
 			//랜덤으로 럭키.. 공격 7배를 추가해 봤어요 + 마법사에 럭키공격() 생성자
@@ -183,7 +182,11 @@ public class Main {
 				if (attacker.getWeapon() == null) attacker.공격하기(target);
 				else attacker.공격하기(target, attacker.getWeapon());
 			}
-			
+
+			if (m == 0) {
+				System.out.println("[이벤트] " + target.getName() + " 이/가 투명망토를 두릅니다!");
+			}
+
 
 			if (target.getHp() <= 0) {
 				System.out.println("☠ " + target.getName() + " 이/가 쓰러졌습니다. ☠");
@@ -197,6 +200,13 @@ public class Main {
 		}
 
 
+	}
+	public static void main(String[] args) {
+
+
+		Battle myGameWindow = new Battle();
+        myGameWindow.setVisible(true);
+        
 	}
 
 }
