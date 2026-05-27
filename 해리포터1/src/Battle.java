@@ -140,7 +140,7 @@ public class Battle extends JFrame {
 				selectWizard(haPd);
 			}
 		});
-		해리포터_선택btn.setBounds(142, 28, 93, 23);
+		해리포터_선택btn.setBounds(142, 28, 93, 79);
 		panel.add(해리포터_선택btn);
 
 		해리포터Img = new JLabel("");
@@ -182,7 +182,7 @@ public class Battle extends JFrame {
 				selectWizard(heMi);
 			}
 		});
-		헤르미온느_선택btn.setBounds(141, 31, 93, 23);
+		헤르미온느_선택btn.setBounds(141, 31, 93, 75);
 		panel_1.add(헤르미온느_선택btn);
 
 		progressBar_heMi = new JProgressBar();
@@ -213,7 +213,7 @@ public class Battle extends JFrame {
 				selectWizard(vol);
 			}
 		});
-		볼드모트_선택btn.setBounds(143, 31, 93, 23);
+		볼드모트_선택btn.setBounds(143, 31, 93, 78);
 		panel_2.add(볼드모트_선택btn);
 
 		progressBar_vol = new JProgressBar();
@@ -243,7 +243,7 @@ public class Battle extends JFrame {
 				selectWizard(bel);
 			}
 		});
-		벨라트릭스_선택btn.setBounds(141, 30, 93, 23);
+		벨라트릭스_선택btn.setBounds(141, 30, 93, 80);
 		panel_3.add(벨라트릭스_선택btn);
 
 		progressBar_bel = new JProgressBar();
@@ -308,7 +308,7 @@ public class Battle extends JFrame {
 		contentPane.add(btnx);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(278, 12, 239, 308);
+		scrollPane.setBounds(265, 12, 260, 308);
 		contentPane.add(scrollPane);
 
 		textArea = new JTextArea();
@@ -338,7 +338,7 @@ public class Battle extends JFrame {
 	            attacker.setWeapon(selectedWeapon);
 	            isWeaponSelected = true;
 				
-				textArea.append("💚 [행동 선택] 치유하기 모드 ➔ 자동으로 " + selectedWeapon.getName() + " 장착 완료!\n");
+				textArea.append("💚 치유하기 모드 ➔ 자동으로 " + selectedWeapon.getName() + " 장착 완료!\n");
 				statusGuideLabel.setText("★ 치유할 [아군 캐릭터] 버튼을 클릭하세요.");
 				setWeaponButtonsEnabled(false);
 			} else {
@@ -349,7 +349,7 @@ public class Battle extends JFrame {
 			isWeaponSelected = false;
 			selectedWeapon = null;
 			
-			textArea.append("⚔️ [행동 선택] 공격하기 모드로 전환되었습니다.\n");
+			textArea.append("⚔️ 공격하기 모드로 전환되었습니다.\n");
 			statusGuideLabel.setText("★ 하단에서 [장착할 무기] 버튼을 클릭하세요.");
 			
 			setWeaponButtonsEnabled(true);
@@ -380,7 +380,7 @@ public class Battle extends JFrame {
 			int m = r.nextInt(4);
 			if (m == 0) {
 				target.setWeapon(new 투명망토("투명망토"));
-				textArea.append("[이벤트] " + target.getName() + "이/가 투명망토를 두릅니다!\n");
+				textArea.append("!! "+ target.getName() + "이/가 투명망토를 두릅니다!\n");
 			}
 
 			int lucky = r.nextInt(8);
@@ -458,10 +458,30 @@ public class Battle extends JFrame {
 	}
 
 	private void disableDeadButton(String name) {
-		if (name.equals("짱해리포터")) 해리포터_선택btn.setEnabled(false);
-		else if (name.equals("똒똑헤르미온느")) 헤르미온느_선택btn.setEnabled(false);
-		else if (name.equals("무섭볼트모트")) 볼드모트_선택btn.setEnabled(false);
-		else if (name.equals("강렬벨라트릭스")) 벨라트릭스_선택btn.setEnabled(false);
+		if (name.equals("짱해리포터")) {
+	        해리포터_선택btn.setEnabled(false);
+	        ImageIcon deadIcon = new ImageIcon(Battle.class.getResource("/images/해리포터_die.png"));
+	        Image scaledImg = deadIcon.getImage().getScaledInstance(121, 117, Image.SCALE_SMOOTH);
+	        해리포터Img.setIcon(new ImageIcon(scaledImg));
+	    } 
+	    else if (name.equals("똒똑헤르미온느")) {
+	        헤르미온느_선택btn.setEnabled(false);
+	        ImageIcon deadIcon = new ImageIcon(Battle.class.getResource("/images/헤르미온느_die.png"));
+	        Image scaledImg = deadIcon.getImage().getScaledInstance(121, 117, Image.SCALE_SMOOTH);
+	        헤르미온느Img.setIcon(new ImageIcon(scaledImg));
+	    } 
+	    else if (name.equals("무섭볼트모트")) {
+	        볼드모트_선택btn.setEnabled(false);
+	        ImageIcon deadIcon = new ImageIcon(Battle.class.getResource("/images/볼드모트_die.png"));
+	        Image scaledImg = deadIcon.getImage().getScaledInstance(121, 117, Image.SCALE_SMOOTH);
+	        볼드모트Img.setIcon(new ImageIcon(scaledImg));
+	    } 
+	    else if (name.equals("강렬벨라트릭스")) {
+	        벨라트릭스_선택btn.setEnabled(false);
+	        ImageIcon deadIcon = new ImageIcon(Battle.class.getResource("/images/벨라트릭스_die.png"));
+	        Image scaledImg = deadIcon.getImage().getScaledInstance(121, 117, Image.SCALE_SMOOTH);
+	        벨라트릭스Img.setIcon(new ImageIcon(scaledImg));
+	    }
 	}
 
 	private void selectWeapon(int idx) {
@@ -593,4 +613,6 @@ public class Battle extends JFrame {
 	    btnNewButton_3.setEnabled(enabled); // 물약
 	    btnx.setEnabled(enabled);           // 무기X
 	}
+	
+	
 }
